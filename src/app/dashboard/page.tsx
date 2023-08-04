@@ -1,17 +1,20 @@
+import { redirect } from 'next/navigation'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+
 export default function Dashboard() {
+  const { isAuthenticated } = getKindeServerSession()
+
+  if (!isAuthenticated()) {
+    redirect('/api/auth/login')
+  }
+
   return (
-    <div className="container">
-      <div className="card start-hero">
-        <p className="text-body-2 start-hero-intro">Woohoo!</p>
-        <p className="text-display-2">
-          Your authentication is all sorted.
-          <br />
-          Build the important stuff.
-        </p>
+    <section className='py-24'>
+      <div className='container'>
+        <div className='rounded-lg bg-black p-8 text-white'>
+          <h1 className='text-3xl font-bold'>Dashboard</h1>
+        </div>
       </div>
-      <section className="next-steps-section">
-        <h2 className="text-heading-1">Next steps for you</h2>
-      </section>
-    </div>
-  );
+    </section>
+  )
 }
